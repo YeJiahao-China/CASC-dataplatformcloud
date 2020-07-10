@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CASC-dataplatformcloud.iml" filepath="$PROJECT_DIR$/.idea/CASC-dataplatformcloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/casc-common/casc-common.iml" filepath="$PROJECT_DIR$/casc-common/casc-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/casc-eurekaserver/casc-eurekaserver.iml" filepath="$PROJECT_DIR$/casc-eurekaserver/casc-eurekaserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/casc-generic/casc-generic.iml" filepath="$PROJECT_DIR$/casc-generic/casc-generic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/casc-indexservice/casc-indexservice.iml" filepath="$PROJECT_DIR$/casc-indexservice/casc-indexservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/casc-portal/casc-portal.iml" filepath="$PROJECT_DIR$/casc-portal/casc-portal.iml" />
+    </modules>
+  </component>
+</project>
