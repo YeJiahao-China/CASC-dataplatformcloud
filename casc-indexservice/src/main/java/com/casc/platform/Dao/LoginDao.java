@@ -10,4 +10,6 @@ import java.util.HashMap;
 public interface LoginDao {
     @Select("select id,username,tel,password from user where tel = #{tel} and password = #{password}")
     User doLogin(HashMap<String, String> paramMap);
+    @Select("select id,username,tel,password from user where tel = #{tel} and password = #{password}")
+    User queryUser(HashMap<String, String> paramMap);
 }

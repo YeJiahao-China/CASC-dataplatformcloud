@@ -19,4 +19,10 @@ public class LoginServiceImpl implements LoginService {
         User user = loginDao.doLogin(paramMap);
         return user == null ? false : true;
     }
+
+    @Override
+    public User queryUser(HashMap<String, String> paramMap) {
+        User user = loginDao.queryUser(paramMap);
+        return user;
+    }
 }

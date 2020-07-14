@@ -1,6 +1,7 @@
 package com.casc.platform.Controller;
 
 import com.casc.platform.Service.LoginService;
+import com.casc.platform.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,5 +19,10 @@ public class LoginController {
     public boolean doLogin(@RequestBody HashMap<String,String> paramMap){
         boolean res = loginService.doLogin(paramMap);
         return res;
+    }
+    @RequestMapping("queryUser")
+    public User queryUser(@RequestBody HashMap<String, String> paramMap){
+        User user = loginService.queryUser(paramMap);
+        return  user;
     }
 }

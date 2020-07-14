@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="css/pagination.css" th:href="@{/css/pagination.css}">
+    <style>
+        .tree li {
+            list-style-type: none;
+            cursor: pointer;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background: #F4F4F4;
+        }
+
+        table tbody td:nth-child(even) {
+            color: #C00;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li style="padding-top:8px;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-success dropdown-toggle"
+                                data-toggle="dropdown">
+                            <i></i>叶家豪<span class="caret"></span>
+                            <!--                            class="glyphicon glyphicon-user"-->
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="divider"></li>
+                            <li><a href="index.html"><i></i> 退出系统</a></li>
+                            <!--                            class="glyphicon glyphicon-off"-->
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="tree">
+                <ul style="padding-left:0px;" class="list-group">
+                    <!--                    <li class="list-group-item tree-closed" >-->
+                    <!--                        <a href="main.html"><i class="glyphicon glyphicon-dashboard"></i>面板</a>-->
+                    <!--                    </li>-->
+                    <li class="list-group-item tree-closed">
+                        <span><i></i> 城市排名 <span class="badge" style="float:right">3</span></span>
+                        <!--                        class="glyphicon glyphicon glyphicon-tasks"-->
+                        <ul style="margin-top:10px;display:none;">
+                            <li style="height:30px;">
+                                <a href="/privilege/user"><i></i> 区县排名</a>
+                                <!--                                class="glyphicon glyphicon-user"-->
+                            </li>
+                            <li style="height:30px;">
+                                <a href="/privilege/role"><i></i> 全省城市排名</a>
+                                <!--                                class="glyphicon glyphicon-king"-->
+                            </li>
+                            <li style="height:30px;">
+                                <a href="/privilege/permit"><i></i>全国城市排名</a>
+                                <!--                                class="glyphicon glyphicon-lock"-->
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i></i> 数据列表</h3>
+                    <!--                    class="glyphicon glyphicon-th"-->
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" role="form" style="float:left;">
+                        <div class="form-group has-feedback">
+                            <div class="input-group">
+                                <div class="input-group-addon">查询条件</div>
+                                <input class="form-control has-success" type="text" placeholder="可根据区域名称查询">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-warning"><i ></i> 查询
+<!--                            class="glyphicon glyphicon-search"-->
+                        </button>
+                    </form>
+                    <br>
+                    <hr style="clear:both;">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered">
+                            <thead>
+                            <tr>
+                                <td>排名</td>
+                                <td>区域名称</td>
+                                <td>综合指数</td>
+                                <td>AQI</td>
+                                <td>PM₂.₅(μg/m3)</td>
+                                <td>PM₁₀(μg/m3)</td>
+                                <td>SO₂(μg/m3)</td>
+                                <td>NO₂(μg/m3)</td>
+                                <td>CO(mg/m3)</td>
+                                <td>O₃_8H(μg/m3)</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="10" align="center">
+                                    <div id="Pagination" class="pagination"></div>
+                                </td>
+                            </tr>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-2.1.1.min.js}"></script>
+<script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<!--<script src="script/docs.min.js" th:src="@{/script/docs.min.js"}></script>-->
+<script src="jquery/layer/layer.js" th:src="@{/jquery/layer/layer.js}"></script>
+<script src="jquery/jquery-form.min.js" th:src="@{/jquery/jquery-form.min.js}"></script>
+<script src="jquery/jquery.pagination.js" th:src="@{/jquery/jquery.pagination.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".list-group-item").click(function () {
+            if ($(this).find("ul")) {
+                $(this).toggleClass("tree-closed");
+                if ($(this).hasClass("tree-closed")) {
+                    $("ul", this).hide("fast");
+                } else {
+                    $("ul", this).show("fast");
+                }
+            }
+        });
+        queryPage(0);
+    });
+
+    var json = {
+        pageno: 1,
+        pagesize: 2
+    };
+
+    function queryPage(pageIndex) {
+        json.pageno = pageIndex + 1;
+        var loadingIndex = -1;
+        $.ajax({
+            type: "post",
+            url: "${APP_PATH}/auth/queryPage",
+            data: json,
+            beforeSend: function () {
+                loadingIndex = layer.msg("正在加载数据中....", {icon: 16});
+                return true;
+            },
+            success: function (result) {
+                layer.close(loadingIndex);
+                if (result.success) {
+                    //局部刷新
+                    var page = result.data;//获取页面
+                    var list = page.datas;//获取页面中的数据
+
+                    var content = '';
+                    $.each(list, function (i, e) {
+                        content += '&lt;tr>';
+                        content += '  &lt;td>' + (i + 1) + '</td>';
+                        content += '  &lt;td>' + e.pdName + '</td>';
+                        content += '  &lt;td>' + e.pdVersion + '</td>';
+                        content += '  &lt;td>' + e.taskName + '</td>';
+                        content += '  &lt;td>' + e.username + '</td>';
+                        content += '  &lt;td>';
+                        content += '	  &lt;button type="button" class="btn btn-primary btn-xs" onclick="window.location.href=\'${APP_PATH}/auth/view?memberId=' + e.memberId + '\'">&lt;i class=" glyphicon glyphicon-eye-open">&lt;/i>&lt;/button>';
+                        content += '	  &lt;button type="button" class="btn btn-danger btn-xs" onclick="deleteProcDef(\'' + e.pdDeployId + '\',\'' + e.pdName + '\')">&lt;i class=" glyphicon glyphicon-remove">&lt;/i>&lt;/button>';
+                        content += '  </td>';
+                        content += '</tr>';
+                    });
+                    $("tbody").html(content);
+                    //使用pagination插件执行分页
+                    $("#Pagination").pagination(page.totalsize, {
+                        num_edge_entries: 1, //边缘页数
+                        num_display_entries: 4, //主体页数
+                        callback: queryPage,
+                        items_per_page: page.pagesize, //每页显示多少项
+                        prev_text: "上一页",
+                        next_text: "下一页",
+                        current_page: page.pageno - 1  //分页插件第一页是从索引0开始。
+                    });
+
+                } else {
+                    layer.msg("加载数据失败!", {time: 1000, icon: 5, shift: 6});
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
