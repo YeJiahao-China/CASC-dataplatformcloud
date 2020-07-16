@@ -31,7 +31,6 @@
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-
     <div class="container-fluid">
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -40,12 +39,10 @@
                         <button type="button" class="btn btn-default btn-success dropdown-toggle"
                                 data-toggle="dropdown">
                             <i></i><span id="username"></span><span class="caret" ></span>
-                            <!--                            class="glyphicon glyphicon-user"-->
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li class="divider"></li>
                             <li><a href="/casc/logout"><i></i> 退出系统</a></li>
-                            <!--                            class="glyphicon glyphicon-off"-->
                         </ul>
                     </div>
                 </li>
@@ -58,24 +55,17 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <div class="tree">
                 <ul style="padding-left:0px;" class="list-group">
-                    <!--                    <li class="list-group-item tree-closed" >-->
-                    <!--                        <a href="main.html"><i class="glyphicon glyphicon-dashboard"></i>面板</a>-->
-                    <!--                    </li>-->
                     <li class="list-group-item tree-closed">
                         <span><i></i> 城市排名 <span class="badge" style="float:right">3</span></span>
-                        <!--                        class="glyphicon glyphicon glyphicon-tasks"-->
                         <ul style="margin-top:10px;display:none;">
                             <li style="height:30px;">
                                 <a href="/casc/cityRanking/countyRanking"><i></i> 区县排名</a>
-                                <!--                                class="glyphicon glyphicon-user"-->
                             </li>
                             <li style="height:30px;">
                                 <a href="/casc/cityRanking/provinceCity"><i></i> 全省城市排名</a>
-                                <!--                                class="glyphicon glyphicon-king"-->
                             </li>
                             <li style="height:30px;">
                                 <a href="/casc/cityRanking/nationalCity"><i></i>全国城市排名</a>
-                                <!--                                class="glyphicon glyphicon-lock"-->
                             </li>
                         </ul>
                     </li>
@@ -85,8 +75,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i></i> 数据列表 — 区县排名</h3>
-                    <!--                    class="glyphicon glyphicon-th"-->
+                    <h3 class="panel-title"><i></i> 数据列表 — 全省城市排名</h3>
                 </div>
                 <div class="panel-body">
                     <form class="form-inline" role="form" style="float:left;">
@@ -94,11 +83,10 @@
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
                                 <input id="queryText" class="form-control has-success" type="text"
-                                       placeholder="可根据区域名称查询">
+                                       placeholder="可根据城市名称查询">
                             </div>
                         </div>
-                        <button type="button" id="queryBtn" class="btn btn-warning" onclick="queryByText()">查询
-                            <!--                            class="glyphicon glyphicon-search"-->
+                        <button type="button" class="btn btn-warning" onclick="queryByText()">查询
                         </button>
                     </form>
                     <br>
@@ -108,7 +96,7 @@
                             <thead>
                             <tr>
                                 <td>排名</td>
-                                <td>区域名称</td>
+                                <td>城市</td>
                                 <td>综合指数</td>
                                 <td>AQI</td>
                                 <td>PM₂.₅(μg/m3)</td>
@@ -117,6 +105,7 @@
                                 <td>NO₂(μg/m3)</td>
                                 <td>CO(mg/m3)</td>
                                 <td>O₃_8H(μg/m3)</td>
+                                <td>O₃(μg/m3)</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -124,7 +113,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="10" align="center">
+                                <td colspan="11" align="center">
                                     <div id="Pagination" class="pagination"></div>
                                 </td>
 
@@ -138,17 +127,10 @@
         </div>
     </div>
 </div>
-<!--jquery.jqpagination.min-->
-<!--<script src="jquery/jquery.jqpagination.js" th:src="@{/jquery/jquery.jqpagination.js}"></script>-->
 <script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-2.1.1.min.js}"></script>
 <script src="jquery/jquery.pagination.js" th:src="@{/jquery/jquery.pagination.js}"></script>
 <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-<!--<script src="script/docs.min.js" th:src="@{/script/docs.min.js"}></script>-->
-<!--<script src="jquery/layer/layer.js" th:src="@{/jquery/layer/layer.js}"></script>-->
 <script src="jquery/jquery-form.min.js" th:src="@{/jquery/jquery-form.min.js}"></script>
-
-
-<!--<script src="jquery/jquery1.9.js" th:src="@{/jquery/jquery1.9.js}"></script>-->
 <script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function () {
@@ -163,25 +145,16 @@
         });
         queryPage(0);
     });
-
-    // var json = {
-    //     pageno: 1,
-    //     pagesize: 2,
-    //     queryText:document.getElementById("queryText")
-    // };
     var pageno = 1;
-
     function queryPage(pageIndex) {
-        // json.pageno = pageIndex + 1;
         pageno = pageIndex + 1;
         var queryText = $('#queryText').val();
-        // var loadingIndex = -1;
         $.ajax({
             type: "POST",
-            url: "/cityRanking/countyRanking/queryPage",
+            url: "/cityRanking/provinceCity/queryPage",
             data: {
                 pageno: pageno,
-                pagesize: 5,
+                pagesize: 6,
                 queryText: queryText
             },
             beforeSend: function () {
@@ -203,7 +176,7 @@
                     $.each(JSON.parse(data), function (i, e) {
                         content += '<tr>';
                         content += '<td>' + (i + 1) + '</td>';
-                        content += '<td>' + e.area + '</td>';
+                        content += '<td>' + e.cityname + '</td>';
                         content += '<td>' + e.composite + '</td>';
                         content += '<td>' + e.aQI + '</td>';
                         content += '<td>' + e.pM2_5 + '</td>';
@@ -212,6 +185,7 @@
                         content += '<td>' + e.sO2 + '</td>';
                         content += '<td>' + e.cO + '</td>';
                         content += '<td>' + e.o3_8H + '</td>';
+                        content += '<td>' + e.o3 + '</td>';
                         content += '</tr>';
                     });
                     $("tbody").html(content);
@@ -231,7 +205,7 @@
             }
         });
     }
-    function queryByText() {
+    function queryByText(){
         queryPage(0);
     }
 </script>

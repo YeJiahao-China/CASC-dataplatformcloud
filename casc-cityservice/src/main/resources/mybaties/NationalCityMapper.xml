@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.casc.platform.Dao.NationalCityDao">
+    <select id="queryNationalCity" resultType="com.casc.platform.bean.NationalCity">
+        select id,cityname,composite,AQI,PM2_5,PM_10,SO2,NO2,CO,O3_8H,O3 from national_city
+        <if test="queryText!=null and queryText!=''">
+            where cityname like concat('%',#{queryText},'%')
+        </if>
+        limit #{startindex},#{pagesize}
+    </select>
+    <select id="countNationalCity" resultType="Integer">
+        select count(1)  from national_city;
+    </select>
+</mapper>
