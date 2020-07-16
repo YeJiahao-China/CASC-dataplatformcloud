@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/casc-cityservice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/casc-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/casc-eurekaserver/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/casc-indexservice/src/main/java" charset="UTF-8" />

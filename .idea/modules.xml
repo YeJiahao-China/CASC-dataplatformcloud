@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CASC-dataplatformcloud.iml" filepath="$PROJECT_DIR$/.idea/CASC-dataplatformcloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/casc-cityservice/casc-cityservice.iml" filepath="$PROJECT_DIR$/casc-cityservice/casc-cityservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/casc-common/casc-common.iml" filepath="$PROJECT_DIR$/casc-common/casc-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/casc-eurekaserver/casc-eurekaserver.iml" filepath="$PROJECT_DIR$/casc-eurekaserver/casc-eurekaserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/casc-generic/casc-generic.iml" filepath="$PROJECT_DIR$/casc-generic/casc-generic.iml" />

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.casc.platform.Dao.CountyDao">
+    <select id="queryCounty" resultType="com.casc.platform.bean.County">
+        SELECT areadata.id,area.area,areadata.composite,areadata.AQI,areadata.CO,areadata.`NO2`,areadata.`O3_8H`,areadata.PM_10,areadata.`PM2_5`,areadata.`SO2` FROM area,areadata WHERE area.id IN(
+        SELECT area.id from area where area.stationid in
+        (
+        SELECT id FROM `monitorstation`
+        <where>
+            monitorstation.station = '国控点')) and area.id = areadata.id
+            <if test="queryText!=null and queryText!=''">
+                and area.area like concat('%',#{queryText},'%')
+            </if>
+        </where>
+        ORDER BY areadata.AQI limit #{startindex},#{pagesize}
+    </select>
+
+    <select id="countSize" resultType="Integer">
+        SELECT COUNT(*) FROM
+        (SELECT areadata.id,area.area,areadata.composite,areadata.AQI,areadata.CO,areadata.`NO2`,areadata.`O3_8H`,areadata.PM_10,areadata.`PM2_5`,areadata.`SO2` FROM area,areadata WHERE area.id IN(
+        SELECT area.id from area where area.stationid in
+        (
+        SELECT id FROM `monitorstation` WHERE monitorstation.station = '国控点')) and area.id = areadata.id) as temp
+    </select>
+</mapper>

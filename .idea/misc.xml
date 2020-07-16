@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/casc-generic/pom.xml" />
         <option value="$PROJECT_DIR$/casc-public/pom.xml" />
         <option value="$PROJECT_DIR$/casc-common/pom.xml" />
+        <option value="$PROJECT_DIR$/casc-cityservice/pom.xml" />
       </list>
     </option>
   </component>

@@ -6,15 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="casc-generic" />
         <module name="casc-indexservice" />
         <module name="casc-portal" />
         <module name="casc-eurekaserver" />
         <module name="casc-common" />
-        <module name="casc-generic" />
+        <module name="casc-cityservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="casc-bean" target="1.5" />
+      <module name="casc-cityservice" target="1.8" />
       <module name="casc-common" target="1.8" />
       <module name="casc-eurekaserver" target="1.8" />
       <module name="casc-generic" target="1.8" />
@@ -25,6 +27,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="casc-cityservice" options="-parameters" />
       <module name="casc-common" options="-parameters" />
       <module name="casc-eurekaserver" options="-parameters" />
       <module name="casc-generic" options="-parameters" />

@@ -1,3 +1,59 @@
+// !function (t, a, e, i) {
+//     var n = function (a, e) {
+//         this.ele = a, this.defaults = {
+//             currentPage: 1,
+//             totalPage: 10,
+//             isShow: !0,
+//             count: 5,
+//             homePageText: "首页",
+//             endPageText: "尾页",
+//             prevPageText: "上一页",
+//             nextPageText: "下一页",
+//             callback: function () {
+//             }
+//         }, this.opts = t.extend({}, this.defaults, e), this.current = this.opts.currentPage, this.total = this.opts.totalPage, this.init()
+//     };
+//     n.prototype = {
+//         init: function () {
+//             this.render(), this.eventBind()
+//         }, render: function () {
+//             var t = this.opts, a = this.current, e = this.total, i = this.getPagesTpl(), n = this.ele.empty();
+//             this.isRender = !0, this.homePage = '<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="1">' + t.homePageText + "</a>", this.prevPage = '<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="' + (a - 1) + '">' + t.prevPageText + "</a>", this.nextPage = '<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="' + (a + 1) + '">' + t.nextPageText + "</a>", this.endPage = '<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="' + e + '">' + t.endPageText + "</a>", this.checkPage(), this.isRender && n.html("<div class='ui-pagination-container'>" + this.homePage + this.prevPage + i + this.nextPage + this.endPage + "</div>")
+//         }, checkPage: function () {
+//             var t = this.opts, a = this.total, e = this.current;
+//             t.isShow || (this.homePage = this.endPage = ""), 1 === e && (this.homePage = this.prevPage = ""), e === a && (this.endPage = this.nextPage = ""), 1 === a && (this.homePage = this.prevPage = this.endPage = this.nextPage = ""), a <= 1 && (this.isRender = !1)
+//         }, getPagesTpl: function () {
+//             var t = this.opts, a = this.total, e = this.current, i = "", n = t.count;
+//             if (a <= n) for (g = 1; g <= a; g++) i += g === e ? '<a href="javascript:void(0);" class="ui-pagination-page-item active" data-current="' + g + '">' + g + "</a>" : '<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="' + g + '">' + g + "</a>"; else {
+//                 var s = n / 2;
+//                 if (e <= s) for (g = 1; g <= n; g++) i += g === e ? '<a href="javascript:void(0);" class="ui-pagination-page-item active" data-current="' + g + '">' + g + "</a>" : '<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="' + g + '">' + g + "</a>"; else {
+//                     var r = Math.floor(s), h = e + r, o = e - r, c = n % 2 == 0;
+//                     h > a && (c ? (o -= h - a - 1, h = a + 1) : (o -= h - a, h = a)), c || h++;
+//                     for (var g = o; g < h; g++) i += g === e ? '<a href="javascript:void(0);" class="ui-pagination-page-item active" data-current="' + g + '">' + g + "</a>" : '<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="' + g + '">' + g + "</a>"
+//                 }
+//             }
+//             return i
+//         }, setPage: function (t, a) {
+//             return t === this.current && a === this.total ? this.ele : (this.current = t, this.total = a, this.render(), this.ele)
+//         }, getPage: function () {
+//             return {current: this.current, total: this.total}
+//         }, eventBind: function () {
+//             var a = this, e = this.opts.callback;
+//             this.ele.off("click").on("click", ".ui-pagination-page-item", function () {
+//                 var i = t(this).data("current");
+//                 a.current != i && (a.current = i, a.render(), e && "function" == typeof e && e(i))
+//             })
+//         }
+//     }, t.fn.pagination = function (t, a, e) {
+//         if ("object" == typeof t) {
+//             var i = new n(this, t);
+//             this.data("pagination", i)
+//         }
+//         return "string" == typeof t ? this.data("pagination")[t](a, e) : this
+//     }
+// }(jQuery, window, document);
+
+
 /**
  * This jQuery plugin displays pagination links inside the selected elements.
  *
@@ -21,14 +77,14 @@ jQuery.fn.pagination = function(maxentries, opts){
 		next_show_always:true,
 		callback:function(){return false;}
 	},opts||{});
-	
+
 	return this.each(function() {
 		/**
 		 * 计算最大分页显示数目
 		 */
 		function numPages() {
 			return Math.ceil(maxentries/opts.items_per_page);
-		}	
+		}
 		/**
 		 * 极端分页的起始和结束点，这取决于current_page 和 num_display_entries.
 		 * @返回 {数组(Array)}
@@ -41,7 +97,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 			var end = current_page>ne_half?Math.min(current_page+ne_half, np):Math.min(opts.num_display_entries, np);
 			return [start,end];
 		}
-		
+
 		/**
 		 * 分页链接事件处理函数
 		 * @参数 {int} page_id 为新页码
@@ -60,7 +116,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 			}
 			return continuePropagation;
 		}
-		
+
 		/**
 		 * 此函数将分页链接插入到容器元素中
 		 */
@@ -81,7 +137,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 				}else{
 					var lnk = jQuery("<a>"+(appendopts.text)+"</a>")
 						.bind("click", getClickHandler(page_id))
-						.attr('href', opts.link_to.replace(/__id__/,page_id));		
+						.attr('href', opts.link_to.replace(/__id__/,page_id));
 				}
 				if(appendopts.classes){lnk.addClass(appendopts.classes);}
 				panel.append(lnk);
@@ -117,14 +173,14 @@ jQuery.fn.pagination = function(maxentries, opts){
 				for(var i=begin; i<np; i++) {
 					appendItem(i);
 				}
-				
+
 			}
 			// 产生 "Next"-链接
 			if(opts.next_text && (current_page < np-1 || opts.next_show_always)){
 				appendItem(current_page+1,{text:opts.next_text, classes:"next"});
 			}
 		}
-		
+
 		//从选项中提取current_page
 		var current_page = opts.current_page;
 		//创建一个显示条数和每页显示条数值
@@ -134,7 +190,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 		var panel = jQuery(this);
 		// 获得附加功能的元素
 		this.selectPage = function(page_id){ pageSelected(page_id);}
-		this.prevPage = function(){ 
+		this.prevPage = function(){
 			if (current_page > 0) {
 				pageSelected(current_page - 1);
 				return true;
@@ -143,7 +199,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 				return false;
 			}
 		}
-		this.nextPage = function(){ 
+		this.nextPage = function(){
 			if(current_page < numPages()-1) {
 				pageSelected(current_page+1);
 				return true;

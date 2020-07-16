@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +23,7 @@
         }
 
         table tbody td:nth-child(even) {
-            color: #C00;
+            color: #0C0C0C;
         }
     </style>
 </head>
@@ -37,12 +38,12 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle"
                                 data-toggle="dropdown">
-                            <i></i>叶家豪<span class="caret"></span>
+                            <i></i><span id="username"></span><span class="caret" ></span>
                             <!--                            class="glyphicon glyphicon-user"-->
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li class="divider"></li>
-                            <li><a href="index.html"><i></i> 退出系统</a></li>
+                            <li><a href="/casc/logout"><i></i> 退出系统</a></li>
                             <!--                            class="glyphicon glyphicon-off"-->
                         </ul>
                     </div>
@@ -64,15 +65,15 @@
                         <!--                        class="glyphicon glyphicon glyphicon-tasks"-->
                         <ul style="margin-top:10px;display:none;">
                             <li style="height:30px;">
-                                <a href="/privilege/user"><i></i> 区县排名</a>
+                                <a href=""><i></i> 区县排名</a>
                                 <!--                                class="glyphicon glyphicon-user"-->
                             </li>
                             <li style="height:30px;">
-                                <a href="/privilege/role"><i></i> 全省城市排名</a>
+                                <a href=""><i></i> 全省城市排名</a>
                                 <!--                                class="glyphicon glyphicon-king"-->
                             </li>
                             <li style="height:30px;">
-                                <a href="/privilege/permit"><i></i>全国城市排名</a>
+                                <a href=""><i></i>全国城市排名</a>
                                 <!--                                class="glyphicon glyphicon-lock"-->
                             </li>
                         </ul>
@@ -83,7 +84,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i></i> 数据列表</h3>
+                    <h3 class="panel-title"><i></i> 数据列表 — 区县排名</h3>
                     <!--                    class="glyphicon glyphicon-th"-->
                 </div>
                 <div class="panel-body">
@@ -91,11 +92,12 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input class="form-control has-success" type="text" placeholder="可根据区域名称查询">
+                                <input id="queryText" class="form-control has-success" type="text"
+                                       placeholder="可根据区域名称查询">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-warning"><i ></i> 查询
-<!--                            class="glyphicon glyphicon-search"-->
+                        <button type="button" class="btn btn-warning"><i></i> 查询
+                            <!--                            class="glyphicon glyphicon-search"-->
                         </button>
                     </form>
                     <br>
@@ -124,6 +126,7 @@
                                 <td colspan="10" align="center">
                                     <div id="Pagination" class="pagination"></div>
                                 </td>
+
                             </tr>
 
                             </tfoot>
@@ -134,14 +137,17 @@
         </div>
     </div>
 </div>
-
-
+<!--jquery.jqpagination.min-->
+<!--<script src="jquery/jquery.jqpagination.js" th:src="@{/jquery/jquery.jqpagination.js}"></script>-->
 <script src="jquery/jquery-2.1.1.min.js" th:src="@{/jquery/jquery-2.1.1.min.js}"></script>
+<script src="jquery/jquery.pagination.js" th:src="@{/jquery/jquery.pagination.js}"></script>
 <script src="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 <!--<script src="script/docs.min.js" th:src="@{/script/docs.min.js"}></script>-->
-<script src="jquery/layer/layer.js" th:src="@{/jquery/layer/layer.js}"></script>
+<!--<script src="jquery/layer/layer.js" th:src="@{/jquery/layer/layer.js}"></script>-->
 <script src="jquery/jquery-form.min.js" th:src="@{/jquery/jquery-form.min.js}"></script>
-<script src="jquery/jquery.pagination.js" th:src="@{/jquery/jquery.pagination.js}"></script>
+
+
+<!--<script src="jquery/jquery1.9.js" th:src="@{/jquery/jquery1.9.js}"></script>-->
 <script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function () {
@@ -157,53 +163,65 @@
         queryPage(0);
     });
 
-    var json = {
-        pageno: 1,
-        pagesize: 2
-    };
+    // var json = {
+    //     pageno: 1,
+    //     pagesize: 2,
+    //     queryText:document.getElementById("queryText")
+    // };
+    var pageno = 1;
 
     function queryPage(pageIndex) {
-        json.pageno = pageIndex + 1;
-        var loadingIndex = -1;
+        // json.pageno = pageIndex + 1;
+        pageno = pageIndex + 1;
+        var queryText = $('#queryText').val();
+        // var loadingIndex = -1;
         $.ajax({
-            type: "post",
-            url: "${APP_PATH}/auth/queryPage",
-            data: json,
+            type: "POST",
+            url: "/cityRanking/countyRanking/queryPage",
+            data: {
+                pageno: pageno,
+                pagesize: 5,
+                queryText: queryText
+            },
             beforeSend: function () {
-                loadingIndex = layer.msg("正在加载数据中....", {icon: 16});
                 return true;
             },
+            dataType: "json",
             success: function (result) {
-                layer.close(loadingIndex);
-                if (result.success) {
+                var username = result.username;
+                document.getElementById("username").innerText = username;
+                if (result.success == "true") {
                     //局部刷新
-                    var page = result.data;//获取页面
-                    var list = page.datas;//获取页面中的数据
-
-                    var content = '';
-                    $.each(list, function (i, e) {
-                        content += '&lt;tr>';
-                        content += '  &lt;td>' + (i + 1) + '</td>';
-                        content += '  &lt;td>' + e.pdName + '</td>';
-                        content += '  &lt;td>' + e.pdVersion + '</td>';
-                        content += '  &lt;td>' + e.taskName + '</td>';
-                        content += '  &lt;td>' + e.username + '</td>';
-                        content += '  &lt;td>';
-                        content += '	  &lt;button type="button" class="btn btn-primary btn-xs" onclick="window.location.href=\'${APP_PATH}/auth/view?memberId=' + e.memberId + '\'">&lt;i class=" glyphicon glyphicon-eye-open">&lt;/i>&lt;/button>';
-                        content += '	  &lt;button type="button" class="btn btn-danger btn-xs" onclick="deleteProcDef(\'' + e.pdDeployId + '\',\'' + e.pdName + '\')">&lt;i class=" glyphicon glyphicon-remove">&lt;/i>&lt;/button>';
-                        content += '  </td>';
+                    var data = result.data;
+                    let content = '';
+                    var pageTotalsize = result.pageTotalsize;
+                    var pagePageno = result.pagePageno;
+                    var pagePagesize = result.pagePagesize;
+                    var startindex = result.startindex;
+                    var totalno = result.totalno;
+                    $.each(JSON.parse(data), function (i, e) {
+                        content += '<tr>';
+                        content += '<td>' + (i + 1) + '</td>';
+                        content += '<td>' + e.area + '</td>';
+                        content += '<td>' + e.composite + '</td>';
+                        content += '<td>' + e.aQI + '</td>';
+                        content += '<td>' + e.pM2_5 + '</td>';
+                        content += '<td>' + e.pM_10 + '</td>';
+                        content += '<td>' + e.sO2 + '</td>';
+                        content += '<td>' + e.sO2 + '</td>';
+                        content += '<td>' + e.cO + '</td>';
+                        content += '<td>' + e.o3_8H + '</td>';
                         content += '</tr>';
                     });
                     $("tbody").html(content);
-                    //使用pagination插件执行分页
-                    $("#Pagination").pagination(page.totalsize, {
+                    $("#Pagination").pagination(pageTotalsize, {
                         num_edge_entries: 1, //边缘页数
                         num_display_entries: 4, //主体页数
                         callback: queryPage,
-                        items_per_page: page.pagesize, //每页显示多少项
+                        items_per_page: pagePagesize, //每页显示多少项
                         prev_text: "上一页",
                         next_text: "下一页",
-                        current_page: page.pageno - 1  //分页插件第一页是从索引0开始。
+                        current_page: pagePageno-1  //分页插件第一页是从索引0开始。
                     });
 
                 } else {
